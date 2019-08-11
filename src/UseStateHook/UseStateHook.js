@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 /*
     Напишите компонент с двуми инпутами и кнопкой
@@ -22,4 +22,34 @@ import React, { useState } from "react";
     https://reactjs.org/docs/hooks-reference.html#usereducer
 */
 
-export const Form = () => {};
+export const Form = () => {
+
+    const [isAuth, setAuth] = useState(false);
+    const [email, setEmail] = useState();
+    const [pass, setPass] = useState();
+
+    const loginForm = () => {
+        if (email === 'test@email.com' && pass === 'supersafepassword')
+            setAuth(true);
+    };
+
+    const handleEmailChange = event => {
+        setEmail(event.target.value);
+    };
+
+    const handlePassChange = event => {
+        setPass(event.target.value);
+    };
+
+    return <>
+        {'isAuth: ' + isAuth }
+        {!isAuth ?
+            <div>
+                <input data-testid='email-input' value={email} onChange={handleEmailChange}/>
+                <input data-testid='password-input' value={pass} onChange={handlePassChange}/>
+                <button data-testid='submit' onClick={loginForm} />
+            </div>
+            :
+            <p data-testid='success-message'>Вы вошли</p>}
+    </>;
+};
